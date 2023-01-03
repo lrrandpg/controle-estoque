@@ -5,7 +5,4 @@ const Customer = require("../models/User");
 const Middleware = require("../Middleware/Middleware")
 
 
-
-
-
-router.get
+function registerUser(req, res)
