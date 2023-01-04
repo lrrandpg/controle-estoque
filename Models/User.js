@@ -1,18 +1,15 @@
-const Sequelize = require("sequelize");
-const connection = require("../database/database");
+const {Model, DataTypes} = require("sequelize");
 
 
-const User = connection.define('users', {
-    usuario:{
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    senha:{
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-  });
-  
-  User.sync({force: true});
-  
-  module.exports = User;
+class Users extends Model {
+  static init(sequelize) {
+    super.init({
+      name: DataTypes.STRING,
+      password: DataTypes.STRING
+    },{
+      sequelize
+    })
+  }
+}
+
+module.exports = Users
