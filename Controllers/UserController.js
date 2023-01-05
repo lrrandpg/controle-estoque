@@ -1,50 +1,62 @@
+const { json } = require("body-parser");
 const express = require("express");
+const { findOne } = require("../Models/User");
 const router = express.Router();
-const Users = require('../Models/User')
-const Middleware = require("../Middleware/Middleware")
-const bcrypt = require('bcrypt')
+const User = require('../Models/User');
+const bcrypt = require('bcrypt');
 
 
-async function signUp (req, res){
-    const {name, password} = req.body
 
-    const salt = bcrypt.genSaltSync(12)
-    const hash = bcrypt.hashSync(password, salt)
+async function updateUser(req, res) {
+    try {
+        const { id } = req.params
+        const { name, password } = req.body
 
-    if((name != undefined) && (password != undefined)){
-        const users = await Users.create({
-            name: name,
-            password: hash
-        })
-        res.status(200), res.json(users)
-    }else{
-        res.status(401), res.json("message: Preencha todos os campos")
-    }
- 
-    
- 
-    
-}
-
-
-async function signIn (req, res){
-    const {name, password} = req.body
-
-    const users = await Users.findOne({where:{name: name}}).then(users =>{
-        if (users != undefined){
-            var correct = bcrypt.compareSync(password, users.password)
-            if(correct){
-                res.status(200),res.json("message: Login efetuado com sucesso")
-            }else{
-                res.status(401),res.json("message: Senha inválida")
-            }
-        }else{
-            res.status(401),res.json("message: Usuário inválido")
+        const salt = bcrypt.genSaltSync(12)
+        const hash = bcrypt.hashSync(password, salt)
+        const user = await User.findOne({ where: { id } })
+        if (!user) {
+            res.status(401).json({ message: 'Nenhum usuário encontrado' })
+        } else {
+            const user = await User.update({ name, password: hash }, { where: { id } })
+            res.status(200).json({user})
         }
-    })
+    } catch (error) {
+        res.status(401).json(error)
+    }
 }
+
+async function deleteUser(req, res) {
+    try {
+        const { id } = req.params
+        const user = await User.findOne({ where: { id } })
+        if (!user) {
+            res.status(401).json({ message: 'Nenhum usuário encontrado' })
+        } else {
+            await User.destroy({ where: { id } })
+            res.status(200).json({ message: 'Usuário deletado com sucesso' })
+        }
+    } catch (error) {
+        res.status(401).json(error)
+    }
+}
+
+async function listUser(req, res) {
+    try {
+        const user = await User.findAll()
+        if (user == undefined) {
+            res.status(401).json({ message: 'Não existem usuários cadastrador' })
+        } else {
+            res.status(200).json({ user })
+        }
+    } catch (error) {
+        res.status(401).json({ error })
+    }
+}
+
 
 module.exports = {
-    signUp,
-    signIn
+    updateUser,
+    deleteUser,
+    listUser
 }

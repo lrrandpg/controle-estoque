@@ -1,4 +1,4 @@
-const {Model, DataTypes} = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
 
 class Users extends Model {
@@ -6,7 +6,7 @@ class Users extends Model {
     super.init({
       name: DataTypes.STRING,
       password: DataTypes.STRING
-    },{
+    }, {
       sequelize
     })
   }
