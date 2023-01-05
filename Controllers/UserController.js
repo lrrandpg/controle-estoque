@@ -1,7 +1,3 @@
-const { json } = require("body-parser");
-const express = require("express");
-const { findOne } = require("../Models/User");
-const router = express.Router();
 const User = require('../Models/User');
 const bcrypt = require('bcrypt');
 
