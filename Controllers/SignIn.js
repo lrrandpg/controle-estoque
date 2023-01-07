@@ -1,5 +1,9 @@
 const Users = require('../Models/User')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+const SECRET = process.env.SECRET
+
 
 
 
@@ -8,9 +12,10 @@ async function signIn(req, res) {
         const { name, password } = req.body
         const users = await Users.findOne({ where: { name: name } }).then(users => {
             if (users != undefined) {
-                var correct = bcrypt.compareSync(password, users.password)
-                if (correct) {
-                    res.status(200), res.json("message: Login efetuado com sucesso")
+                var validationpass = bcrypt.compareSync(password, users.password)
+                if (validationpass) {
+                    const token = jwt.sign({ id: users.id, name: users.name, password: users.password }, SECRET, { expiresIn: 300 })
+                    res.status(200).json({ auth: true, token })
                 } else {
                     res.status(401), res.json("message: Senha inválida")
                 }

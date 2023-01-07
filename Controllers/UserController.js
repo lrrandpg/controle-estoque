@@ -41,12 +41,12 @@ async function listUser(req, res) {
     try {
         const user = await User.findAll()
         if (user == undefined) {
-            res.status(401).json({ message: 'Não existem usuários cadastrador' })
+            res.status(401).json({ message: 'Não existem usuários cadastrados' })
         } else {
             res.status(200).json({ user })
         }
     } catch (error) {
-        res.status(401).json({ error })
+        res.status(500).json({ error })
     }
 }
 
