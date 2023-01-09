@@ -13,7 +13,7 @@ function validateTokenJWT(req, res, next) {
 
         req.id= decoded.id
         req.name = decoded.name
-        console.log("_id: " + decoded.id, "name: " + decoded.name)
+        console.log("ID: " + decoded.id + " se autenticou e atende por", "name: " + decoded.name)
         next()
     });
 } 

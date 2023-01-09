@@ -15,7 +15,8 @@ async function updateUser(req, res) {
             res.status(401).json({ message: 'Nenhum usuário encontrado' })
         } else {
             const user = await User.update({ name, password: hash }, { where: { id } })
-            res.status(200).json({user})
+            const user_updated = await User.findOne({ where: { id } })
+            res.status(200).json({user_updated})
         }
     } catch (error) {
         res.status(401).json(error)
