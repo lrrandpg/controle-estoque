@@ -5,7 +5,7 @@ const OrderController = require('../Controllers/OrderController')
 const ProductController = require('../Controllers/ProductController')
 const SignIn = require('../Controllers/SignIn')
 const SignUp = require('../Controllers/SignUp')
-const {validateTokenJWT} = require('../Middleware/validateTokenJWT')
+const { validateTokenJWT } = require('../Middleware/validateTokenJWT')
 const { port } = require('../config/database')
 
 
@@ -26,12 +26,12 @@ routes.get('/order/list/complete', validateTokenJWT, OrderController.listComplet
 routes.get('/order/list/inprogress', validateTokenJWT, OrderController.listInProgressOrders)
 
 /*ROUTES PRODUCTS */
-routes.post('/product/create', ProductController.createProduct)
-routes.put('/product/update/:id', ProductController.updateProduct)
-routes.get('/product/list/all', ProductController.listAllProducts)
-routes.delete('/product/delete/:id', ProductController.deleteProducts)
-routes.get('/product/list/available', ProductController.listAvailableProducts)
-routes.get('/product/list/unavailable', ProductController.listUnavailableProducts)
+routes.post('/product/create', validateTokenJWT, ProductController.createProduct)
+routes.put('/product/update/:id', validateTokenJWT, ProductController.updateProduct)
+routes.get('/product/list/all', validateTokenJWT, ProductController.listAllProducts)
+routes.delete('/product/delete/:id', validateTokenJWT, ProductController.deleteProducts)
+routes.get('/product/list/available', validateTokenJWT, ProductController.listAvailableProducts)
+routes.get('/product/list/unavailable', validateTokenJWT, ProductController.listUnavailableProducts)
 
 
 
