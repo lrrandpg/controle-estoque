@@ -7,6 +7,7 @@ class Orders extends Model {
       item_name: DataTypes.STRING,
       description: DataTypes.STRING,
       amount: DataTypes.INTEGER,
+      order_status: DataTypes.BOOLEAN,
       request_owner: DataTypes.STRING,
     }, {
       sequelize

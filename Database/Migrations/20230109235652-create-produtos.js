@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up (queryInterface, Sequelize) {
-    return queryInterface.createTable('Orders', {
+    return queryInterface.createTable('Products', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -22,12 +22,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      order_status: {
+      product_status: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
       },
-      request_owner: {
-        allowNull: false,
+      buyer_product: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -45,6 +45,6 @@ module.exports = {
   },
 
   down (queryInterface, Sequelize) {
-    return queryInterface.dropTable('Orders');  
+    return queryInterface.dropTable('Products');  
   }
 };

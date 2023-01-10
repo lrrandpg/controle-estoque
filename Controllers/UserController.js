@@ -38,7 +38,7 @@ async function deleteUser(req, res) {
     }
 }
 
-async function listUser(req, res) {
+async function listAllUsers(req, res) {
     try {
         const user = await User.findAll()
         if (user == undefined) {
@@ -55,5 +55,5 @@ async function listUser(req, res) {
 module.exports = {
     updateUser,
     deleteUser,
-    listUser
+    listAllUsers
 }
