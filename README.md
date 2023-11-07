@@ -4,9 +4,9 @@
 Back-end feito para um sistema com controle de estoque simples.
 
 
-Para rodar o back-end faça o pull do projeto
+<p>Para rodar o back-end faça o pull do projeto</p>
 
-Utilize os seguintes comandos:
+<p>Utilize os seguintes comandos:<p/>
 
-docker build -t "nome-da-imagem-desejada" .
-docker run -p 80:80 -d "nome-da-imagem-desejada"
+<p><h4>docker build -t "nome-da-imagem-desejada" .</h4> </p>
+<p>docker run -p 80:80 -d "nome-da-imagem-desejada"</p>
